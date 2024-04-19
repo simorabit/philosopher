@@ -25,5 +25,7 @@ void read_input(t_table *table, char *arv[])
     table->time_to_eat = ft_atoi(arv[3]);
     table->time_to_sleep = ft_atoi(arv[4]);
     if(arv[5])
-        table->meals = ft_atoi(arv[5]);
+        table->meals_must_eate = ft_atoi(arv[5]);
+    else
+        table->meals_must_eate = -1;
 }

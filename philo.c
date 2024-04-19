@@ -1,35 +1,22 @@
 #include "philo.h"
 
-void init_data(t_table *table)
-{
-    int i;
-
-    i = 0;
-    table->forks = malloc(sizeof(t_philo) * table->philos);
-    if (!table->forks)
-        error_exit("Error");
-    table->philos_list = malloc(sizeof(t_forks) * table->philos);
-    if (!table->philos_list)
-        error_exit("Error");
-    while (i < table->philos)
-    {
-        pthread_mutex_init(&(table)->forks[i].forks, NULL);
-        table->forks->id = i;
-        i++;
-    }
-    init_philo(table);
-}
 void *routine(void *philo)
 {
     t_philo phil = *(t_philo *)philo;
-    // if(phil.id % 2 != 0)
-    // {
-    //     pthread_mutex_lock()
-    // }
-    printf("philo %d begain to eat\n", phil.id);
-    //sleep(200);
+    while (!dinner_end(phil.table))
+    {
+        if(phil.isfull)
+            break;
+        if(phil.table->philos == 1)
+            return (display_msg(&phil, Died), NULL);
+        eat(philo);
+        display_msg(philo, Sleeping);
+        ft_usleep(phil.table->time_to_sleep);
+        display_msg(philo, Thinking);
+    }
     return (NULL);
 }
+
 void thread_work(t_table *table)
 {
     int i;
@@ -38,15 +25,18 @@ void thread_work(t_table *table)
     while (i < table->philos)
     {
         pthread_create(&(table)->philos_list[i].id_thread, NULL, routine, &(table)->philos_list[i]);
-        table->philos_list[i].id = i + 1;
         i++;
     }
+    set_long(&table->m_start_dinner, &table->start_dinner, gettime());
+    pthread_create(&table->observer, NULL, monitoring, table);
     i = 0;
     while (i < table->philos)
     {
         pthread_join(table->philos_list[i].id_thread, NULL);
         i++;
     }
+    pthread_join(table->observer, NULL);
+    destroy_all(table);
 }
 int main(int argc, char *arv[])
 {
