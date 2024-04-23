@@ -1,21 +1,8 @@
 #include "philo.h"
 
-void	ft_putstr_fd(char *str, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(fd, &str[i], 1);
-		i++;
-	}
-    write(fd, "\n", 1);
-}
-
 void error_exit(char *s)
 {
-    ft_putstr_fd(s, 1);
+    printf("%s\n", s);
     exit(1);
 }
 void read_input(t_table *table, char *arv[])
