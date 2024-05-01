@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 09:57:10 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/04/23 10:54:27 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:31:52 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int is_philos_full(t_table *table)
     i = 0;
     while (i < table->philos)
     {
-        if (!get_bool(table->philos_list[i].sem_philo, &table->philos_list[i].isfull))
+        if (!get_bool(table->philo.sem_philo, &table->philo.isfull))
             return 0;
         i++; 
     }

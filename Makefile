@@ -9,7 +9,7 @@ SRCS = $(mnd)ft_atoi.c $(mnd)parsing.c $(mnd)philo.c $(mnd)utils.c $(mnd)init_da
 		$(mnd)philo_state.c $(mnd)getter_setters.c $(mnd)monitoring.c
 
 SRCB = bonus/ft_atoi.c bonus/parsing.c bonus/philo_bonus.c bonus/utils.c bonus/init_data.c \
-		bonus/philo_state.c bonus/getters_setters.c bonus/monitoring.c
+		bonus/philo_state.c bonus/getters_setters.c bonus/monitoring.c bonus/string_utils.c
 
 OBJS = $(SRCS:.c=.o)
 OBJB = $(SRCB:.c=.o)

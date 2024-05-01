@@ -1,23 +1,21 @@
 
 #include "philo_bonus.h"
-void *routine(void *philo)
+void routine(t_table *table, int id)
 {
-    t_philo mphilo;
-    mphilo = *(t_philo *)philo;
-    
-    while (!get_long(mphilo.table->s_table, &mphilo.table->start_dinner));
-    if (mphilo.id % 2 == 0)
-        ft_usleep(mphilo.table->time_to_eat);
-    while (!dinner_end(mphilo.table) && !mphilo.isfull)
+    init_philo(table, id);
+    if(id % 2 == 0)
+        ft_usleep(table->time_to_eat);
+    if (pthread_create(&table->observer, NULL, &monitoring, 
+            table) == -1)
+            error_exit("ERROR");
+    while (1) 
     {
-        if (mphilo.table->philos == 1)
-            return (display_msg(&mphilo, Died), NULL);
-        eat(philo);
-        display_msg(&mphilo, Sleeping);
-        ft_usleep(mphilo.table->time_to_sleep);
-        display_msg(&mphilo, Thinking);
+        eat(table);
+        display_msg(&table->philo, Sleeping);
+        ft_usleep(table->time_to_sleep);
+        display_msg(&table->philo, Thinking);
     }
-    return (NULL);
+    pthread_join(table->observer, NULL);
 }
 
 void create_processes(t_table *table)
@@ -27,28 +25,39 @@ void create_processes(t_table *table)
 
     i = 0;
     set_long(table->s_table, &table->start_dinner, gettime());
-    pid = fork();
-    if(pid == 0)
-        monitoring(table);
+    table->philos_list = malloc(table->philos * sizeof(int));
+    if (!table->philos_list)
+        error_exit("ERROR");
     while (i < table->philos)
     {
         pid = fork();
         if(pid == 0) // child part
         {
-            routine(&table->philos_list[i]);
-            exit(0);
+            routine(table, i);
+            exit(1);
         }
-        else if(pid < 0)
+        else if (pid < 0)
             error_exit("ERROR");
+        else
+            table->philos_list[i] = pid;
         i++;
     }
-    i = 0;
-    while (i < table->philos)
+    int status  = 0;
+    while (1)
     {
-        wait(NULL);
-        i++;
+        if (waitpid(-1, &status, WNOHANG) == -1)
+            break ;
+        if(WEXITSTATUS(status) == exit_id)
+        {
+            i = 0;
+            while (i < table->philos)
+            {
+                kill(table->philos_list[i], SIGINT);
+                i++;
+            }
+            break;
+        }
     }
-    wait(NULL);
 }
 
 int main(int argc, char *arv[])
