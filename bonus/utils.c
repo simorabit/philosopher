@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 09:57:10 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/01 10:31:52 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/01 12:08:47 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,24 @@ bool dinner_end(t_table *table)
     return get_bool(table->s_table, &table->end_dinner);
 }
 
-void display_msg(t_philo *philo, int state)
+void display_msg(t_philo philo, t_table *table , int state)
 {
-    long time = gettime() - get_long(philo->table->s_table, &philo->table->start_dinner) ;
-    if (philo->isfull)
-        return ;
-    if (state == Eating && !dinner_end(philo->table))
-        printf("%ld %d is eating\n", time, philo->id);
-    else if (state == Sleeping && !dinner_end(philo->table))
-        printf("%ld %d is sleeping\n", time, philo->id);
-    else if (state == Thinking && !dinner_end(philo->table))
-        printf("%ld %d is thinking\n", time, philo->id);
+    long time = gettime() - get_long(philo.sem_philo, &table->start_dinner) ;
+    // long time = gettime() - table->start_dinner ;
+    // if (philo.isfull)
+    //     return ;
+    sem_wait(table->s_table);
+    if (state == Eating)
+        printf("%ld %d is eating\n", time, philo.id);
+    else if (state == Sleeping)
+        printf("%ld %d is sleeping\n", time, philo.id);
+    else if (state == Thinking)
+        printf("%ld %d is thinking\n", time, philo.id);
     else if(state == Died)
-        printf("%ld %d died\n", time, philo->id);
-    else if (state == TakenFork && !dinner_end(philo->table))
-        printf("%ld %d has taken a fork\n", time, philo->id);
+        printf("%ld %d died\n", time, philo.id);
+    else if (state == TakenFork)
+        printf("%ld %d has taken a fork\n", time, philo.id);
+    sem_post(table->s_table);
 }
 
 int is_philos_full(t_table *table)

@@ -17,6 +17,7 @@
 # define Sleeping	2
 # define Thinking	3
 # define Died	    4
+
 #define exit_id 10
 # define sem_fork "/semfork";
 typedef struct table t_table;
@@ -55,8 +56,8 @@ long	ft_atoi(const char *str);
 long    gettime();
 int     get_bool(sem_t *sem, int *value);
 bool    dinner_end(t_table *table);
-void    display_msg(t_philo *philo, int state);
-void    init_philo(t_table *table, int id);
+void    display_msg(t_philo philo, t_table *table, int state);
+void init_philo(t_philo *philo, int id);
 void    init_data(t_table *table);
 void    eat(t_table *philo);
 int     is_philos_full(t_table *table);

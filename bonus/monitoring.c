@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:27:00 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/01 10:04:27 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/01 12:10:23 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void *monitoring(void *philo)
     m_philo = (t_philo*)philo;
     while(1)
     {
-        if(philo_die(m_philo))
-        {
-            display_msg(m_philo, Died);
-            exit(exit_id);
-        }
+        // if(philo_die(m_philo))
+        // {
+        //     display_msg(*m_philo, m_philo->table, Died);
+        //     exit(exit_id);
+        // }
     }
     return (NULL);
 }
