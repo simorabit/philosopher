@@ -14,7 +14,12 @@ long get_long(sem_t *sem, long *value)
     sem_post(sem);
     return var;
 }
-
+void increment_int(sem_t *sem, int *var)
+{
+    sem_wait(sem);
+    (*var)++;
+    sem_post(sem);
+}
 int get_bool(sem_t *sem, int *value)
 {
     int var;

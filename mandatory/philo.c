@@ -46,10 +46,16 @@ void threads_creation(t_table *table)
         destroy_all(table);
 }
 
+void    leaks(void)
+{
+    system("leaks philo");
+}
+
 int main(int argc, char *arv[])
 {
     t_table table;
-    
+
+    atexit(leaks);
     if (argc != 5 && argc != 6)
         error_exit("Error in inputs");
     read_input(&table, arv);

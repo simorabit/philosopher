@@ -3,7 +3,6 @@
 void routine(t_table *table, int id)
 {
 	init_philo(&table->philo, id);
-	// printf("id %d\n", table->philo.id);
 	if(id % 2 == 0)
 		ft_usleep(table->time_to_eat);
 	if (pthread_create(&table->observer, NULL, &monitoring, 
@@ -25,14 +24,12 @@ void create_processes(t_table *table)
 	int pid = 0;
 
 	i = 0;
+	
 	set_long(table->s_table, &table->start_dinner, gettime());
-	table->philos_list = malloc(table->philos * sizeof(int));
-	if (!table->philos_list)
-		error_exit("ERROR");
 	while (i < table->philos)
 	{
 		pid = fork();
-		if(pid == 0) // child part
+		if(pid == 0) 
 		{
 			routine(table, i);
 			exit(1);

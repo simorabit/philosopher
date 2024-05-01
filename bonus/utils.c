@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 09:57:10 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/01 12:08:47 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/01 13:24:57 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ bool dinner_end(t_table *table)
 void display_msg(t_philo philo, t_table *table , int state)
 {
     long time = gettime() - get_long(philo.sem_philo, &table->start_dinner) ;
-    // long time = gettime() - table->start_dinner ;
-    // if (philo.isfull)
-    //     return ;
+    if (philo.isfull)
+        exit(0);
     sem_wait(table->s_table);
     if (state == Eating)
         printf("%ld %d is eating\n", time, philo.id);
@@ -65,6 +64,6 @@ void    ft_usleep(long time)
     long    milli;
 
     milli = gettime();
-    while (gettime() - milli < time)
-        usleep(500);
+    while (gettime() - milli < time);
+        // usleep(100);
 }

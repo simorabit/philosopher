@@ -38,7 +38,7 @@ $(BPATH)%.o : $(BPATH)%.c $(BPATH)philo_bonus.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJB)
 
 fclean : clean
 	rm -f $(TARGET) $(TARGET_BONUS)

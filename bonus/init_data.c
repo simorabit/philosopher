@@ -19,6 +19,9 @@ void init_data(t_table *table)
 {
     table->s_sem_fork = sem_open("/forks", O_CREAT | O_EXCL, 0644, table->philos);
     table->s_table = sem_open("/sem_table", O_CREAT | O_EXCL, 0644, 1);
+    table->philos_list = malloc(table->philos * sizeof(int));
+    if (!table->philos_list)
+		error_exit("ERROR");
     table->end_dinner = 0;
     table->start_dinner = 0;
 }

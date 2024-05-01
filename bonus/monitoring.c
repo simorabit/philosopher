@@ -6,34 +6,35 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:27:00 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/01 12:10:23 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/01 13:40:16 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "philo_bonus.h"
 
-int philo_die(t_philo *philo)
+int philo_die(t_table *table)
 {
     long time;
-
-    time = gettime() - get_long(philo->sem_philo, &philo->last_meal_time);
-    if(time >= philo->table->time_to_die)
+    sem_wait(table->s_table);
+    time = gettime() - get_long(table->philo.sem_philo, &table->philo.last_meal_time);
+    sem_post(table->s_table);
+    if (time >= table->time_to_die)
         return 1;
     return 0;
 }
 
-void *monitoring(void *philo)
+void *monitoring(void *table)
 {
-    t_philo *m_philo;
-    m_philo = (t_philo*)philo;
+    t_table *mtable;
+    mtable = (t_table*)table;
     while(1)
     {
-        // if(philo_die(m_philo))
-        // {
-        //     display_msg(*m_philo, m_philo->table, Died);
-        //     exit(exit_id);
-        // }
+        if(philo_die(mtable))
+        {
+            display_msg(mtable->philo, mtable, Died);
+            exit(exit_id);
+        }
     }
     return (NULL);
 }
@@ -46,7 +47,7 @@ void *monitoring(void *philo)
 //     sem_close(table->s_sem_fork);
 //     while (i < table->philos)
 //     {
-//         sem_close(table->philos_list[i].sem_philo);
+//         sem_close(table->philo);
 //         i++;
 //     }
 //     i = 0;

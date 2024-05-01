@@ -11,7 +11,7 @@ void eat(t_table *table)
     set_long(table->philo.sem_philo, &table->philo.last_meal_time, gettime());
     // if (is_philos_full(table))
     //     set_bool(table->s_table, &table->end_dinner, 1);
-    table->philo.meals_eaten++;
+    increment_int(table->philo.sem_philo, &table->philo.meals_eaten);
     if (table->philo.meals_eaten == table->meals_must_eate)
         set_bool(table->philo.sem_philo, &table->philo.isfull, 1);
     ft_usleep(table->time_to_eat);

@@ -1,6 +1,6 @@
 {
     "files.associations": {
-        "philo_bonus.h": "c",
-        "unistd.h": "c"
+        "locale": "c",
+        "string": "c"
     }
 }
