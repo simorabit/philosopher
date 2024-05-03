@@ -12,6 +12,9 @@
 #include <sys/time.h>
 #include <semaphore.h>
 
+#define sem_forks "/sem_forks"
+#define sem_print "/sem_print"
+
 # define TakenFork	0
 # define Eating	    1
 # define Sleeping	2
@@ -29,10 +32,9 @@ typedef struct s_philo
     int     isfull;
     long    last_meal_time;
     sem_t   *sem_philo;
-    t_table *table;
 }           t_philo;
 
-struct table
+typedef struct table 
 {
     int         philos;
     int         *philos_list;
@@ -46,7 +48,8 @@ struct table
     pthread_t   observer;
     sem_t       *s_sem_fork;
     t_philo     philo;
-};
+}       t_table;
+
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 void    wait_even_process(t_table *table, int id);
@@ -58,8 +61,8 @@ long	ft_atoi(const char *str);
 long    gettime();
 int     get_bool(sem_t *sem, int *value);
 bool    dinner_end(t_table *table);
-void    display_msg(t_philo philo, t_table *table, int state);
-void    init_philo(t_philo *philo, int id);
+void    display_msg(t_table *table, int state);
+void init_philo(t_philo *philo, int id);
 void    increment_int(sem_t *sem, int *var);
 void    init_data(t_table *table);
 void    eat(t_table *philo);

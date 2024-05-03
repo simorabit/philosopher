@@ -3,7 +3,7 @@
 void error_exit(char *s)
 {
     printf("%s\n", s);
-    exit(1);
+    // exit(1);
 }
 void read_input(t_table *table, char *arv[])
 {

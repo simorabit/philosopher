@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:27:00 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/04/20 10:50:03 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:26:02 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,6 @@ void destroy_all(t_table *table)
         i++;
     }
     i = 0;
-    // free(&table->philos_list[0]);
-    // while (i < table->philos)
-    // {
-    //     free(&table->philos_list[i]);
-    //     i++;
-    // }
-    // free(&table->philos_list);
-    exit(0);
+    free(table->philos_list);
+    free(table->forks);
 }

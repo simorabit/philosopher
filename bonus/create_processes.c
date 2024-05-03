@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:39:54 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/03 11:40:02 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:24:32 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void create_processes(t_table *table)
 			exit(0);
 		}
 		else if (pid < 0)
-			error_exit("ERROR");
+			error_exit("Error in fork");
 		table->philos_list[i] = pid;
 		i++;
 	}
 	wait_process(table);
+	
 }
+
 void wait_process(t_table *table)
 {
     int status;

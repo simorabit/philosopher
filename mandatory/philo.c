@@ -55,7 +55,7 @@ int main(int argc, char *arv[])
 {
     t_table table;
 
-    atexit(leaks);
+    // atexit(leaks);
     if (argc != 5 && argc != 6)
         error_exit("Error in inputs");
     read_input(&table, arv);

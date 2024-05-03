@@ -10,10 +10,10 @@ void check_if_isfull(t_table *table)
 void eat(t_table *table)
 {
     sem_wait(table->s_sem_fork);
-    display_msg(table->philo, table, TakenFork);
+    display_msg(table, TakenFork);
     sem_wait(table->s_sem_fork);
-    display_msg(table->philo, table, TakenFork);
-    display_msg(table->philo, table, Eating);
+    display_msg(table, TakenFork);
+    display_msg(table, Eating);
     set_long(table->philo.sem_philo, &table->philo.last_meal_time, gettime());
     increment_int(table->philo.sem_philo, &table->philo.meals_eaten);
     check_if_isfull(table);
@@ -34,9 +34,9 @@ void routine(t_table *table, int id)
 		if(table->philo.isfull)
 			exit(0);
 		eat(table);
-		display_msg(table->philo, table, Sleeping);
+		display_msg(table, Sleeping);
 		ft_usleep(table->time_to_sleep);
-		display_msg(table->philo, table, Thinking);
+		display_msg(table, Thinking);
 	}
     sem_close(table->philo.sem_philo);
 }
