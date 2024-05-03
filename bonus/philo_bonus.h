@@ -19,12 +19,11 @@
 # define Died	    4
 
 #define exit_id 10
-# define sem_fork "/semfork";
+
 typedef struct table t_table;
 
 typedef struct s_philo
 {
-    int     pid;
     int     id;
     int     meals_eaten;
     int     isfull;
@@ -35,21 +34,24 @@ typedef struct s_philo
 
 struct table
 {
-    int     philos;
-    int     *philos_list;
-    long    time_to_die;
-    long    time_to_eat;
-    long    time_to_sleep;
-    long    meals_must_eate;
-    long    start_dinner;
-    int     end_dinner;
-    sem_t       *s_table;
+    int         philos;
+    int         *philos_list;
+    long        time_to_die;
+    long        time_to_eat;
+    long        time_to_sleep;
+    long        meals_must_eate;
+    long        start_dinner;
+    int         end_dinner;
+    sem_t       *s_print;
     pthread_t   observer;
-    sem_t   *s_sem_fork;
-    t_philo philo;
+    sem_t       *s_sem_fork;
+    t_philo     philo;
 };
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
+void    wait_even_process(t_table *table, int id);
+void    wait_process(t_table *table);
+void    routine(t_table *table, int id);
 void    read_input(t_table *table, char *arv[]);
 void    error_exit(char *s);
 long	ft_atoi(const char *str);
@@ -64,8 +66,9 @@ void    eat(t_table *philo);
 int     is_philos_full(t_table *table);
 void    set_bool(sem_t *sem, int *dest, int value);
 void    ft_usleep(long time);
+void    create_processes(t_table *table);
 void    *monitoring(void *table);
-void    destroy_all(t_table *table);
+void    clean_up(t_table *table);
 long    get_long(sem_t *sem, long *value);
 void    set_long(sem_t *sem, long *dest, long value);
 #endif

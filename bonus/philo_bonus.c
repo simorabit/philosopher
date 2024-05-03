@@ -1,62 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/03 11:46:24 by mal-mora          #+#    #+#             */
+/*   Updated: 2024/05/03 11:51:46 by mal-mora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "philo_bonus.h"
-void routine(t_table *table, int id)
-{
-	init_philo(&table->philo, id);
-	if(id % 2 == 0)
-		ft_usleep(table->time_to_eat);
-	if (pthread_create(&table->observer, NULL, &monitoring, 
-			table) == -1)
-			error_exit("ERROR");
-	while (1) 
-	{
-		eat(table);
-		display_msg(table->philo, table, Sleeping);
-		ft_usleep(table->time_to_sleep);
-		display_msg(table->philo, table, Thinking);
-	}
-	pthread_join(table->observer, NULL);
-}
 
-void create_processes(t_table *table)
-{
-	int i;
-	int pid = 0;
-
-	i = 0;
+// void clean_up(t_table *table)
+// {
 	
-	set_long(table->s_table, &table->start_dinner, gettime());
-	while (i < table->philos)
-	{
-		pid = fork();
-		if(pid == 0) 
-		{
-			routine(table, i);
-			exit(1);
-		}
-		else if (pid < 0)
-			error_exit("ERROR");
-		table->philos_list[i] = pid;
-		i++;
-	}
-	int status  = 0;
-	while (1)
-	{
-		if (waitpid(-1, &status, WNOHANG) == -1)
-			break ;
-		if(WEXITSTATUS(status) == exit_id)
-		{
-			i = 0;
-			while (i < table->philos)
-			{
-				kill(table->philos_list[i], SIGINT);
-				i++;
-			}
-			break;
-		}
-	}
-}
-
+// }
 int main(int argc, char *arv[])
 {
 	t_table table;
@@ -66,5 +26,5 @@ int main(int argc, char *arv[])
 	read_input(&table, arv);
 	init_data(&table);
 	create_processes(&table);
-	// destroy_all(&table);
+	// clean_up(&table);
 }

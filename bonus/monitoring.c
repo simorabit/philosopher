@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:27:00 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/01 13:40:16 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:30:01 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 int philo_die(t_table *table)
 {
     long time;
-    sem_wait(table->s_table);
+    
     time = gettime() - get_long(table->philo.sem_philo, &table->philo.last_meal_time);
-    sem_post(table->s_table);
     if (time >= table->time_to_die)
         return 1;
     return 0;
@@ -30,9 +29,11 @@ void *monitoring(void *table)
     mtable = (t_table*)table;
     while(1)
     {
-        if(philo_die(mtable))
-        {
-            display_msg(mtable->philo, mtable, Died);
+        if (philo_die(mtable))
+        {  
+            sem_wait(mtable->s_print);
+            printf("%ld %d died\n", gettime() - get_long(mtable->philo.sem_philo, \
+                &mtable->philo.last_meal_time), mtable->philo.id);
             exit(exit_id);
         }
     }
@@ -43,7 +44,7 @@ void *monitoring(void *table)
 //     int i;
 
 //     i = 0;
-//     sem_close(table->s_table);
+//     sem_close(table->s_print);
 //     sem_close(table->s_sem_fork);
 //     while (i < table->philos)
 //     {

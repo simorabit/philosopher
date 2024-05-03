@@ -1,10 +1,5 @@
 #include "philo_bonus.h"
 
-void error_exit(char *s)
-{
-    printf("%s\n", s);
-    exit(1);
-}
 void read_input(t_table *table, char *arv[])
 {
     table->philos = ft_atoi(arv[1]);
