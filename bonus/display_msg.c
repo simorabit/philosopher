@@ -13,15 +13,15 @@ void display_msg(t_table *table , int state)
     m_philo = &table->philo;
     long time = gettime() - get_long(m_philo->sem_philo, &table->start_dinner);
     sem_wait(table->s_print);
-    if (state == Eating)
+    if (state == EATING)
         printf("%ld %d is eating\n", time, m_philo->id);
-    else if (state == Sleeping)
+    else if (state == SLEEPING)
         printf("%ld %d is sleeping\n", time, m_philo->id);
-    else if (state == Thinking)
+    else if (state == THINKING)
         printf("%ld %d is thinking\n", time, m_philo->id);
-    else if(state == Died)
+    else if(state == DIED)
         printf("%ld %d died\n", time, m_philo->id);
-    else if (state == TakenFork)
+    else if (state == TAKEN_FORK)
         printf("%ld %d has taken a fork\n", time, m_philo->id);
     sem_post(table->s_print);
 }

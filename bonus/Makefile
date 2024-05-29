@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 # -fsanitize=thread -g
 
 SRCB = ft_atoi.c parsing.c philo_bonus.c utils.c init_data.c \

@@ -15,11 +15,11 @@
 #define sem_forks "/sem_forks"
 #define sem_print "/sem_print"
 
-# define TakenFork	0
-# define Eating	    1
-# define Sleeping	2
-# define Thinking	3
-# define Died	    4
+# define TAKEN_FORK	0
+# define EATING		1
+# define SLEEPING	2
+# define THINKING	3
+# define DIED		4
 
 #define exit_id 10
 
