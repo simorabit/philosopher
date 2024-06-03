@@ -15,6 +15,7 @@ void eat(t_table *table)
     display_msg(table, TAKEN_FORK);
     display_msg(table, EATING);
     set_long(table->philo.sem_philo, &table->philo.last_meal_time, gettime());
+    // table->philo.last_meal_time = gettime();
     increment_int(table->philo.sem_philo, &table->philo.meals_eaten);
     check_if_isfull(table);
     ft_usleep(table->time_to_eat);
