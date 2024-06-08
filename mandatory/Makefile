@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
-# -fsanitize=thread -g
+# -g -fsanitize=thread 
 
 SRCS = ft_atoi.c parsing.c philo.c utils.c init_data.c \
 		philo_state.c getter_setters.c monitoring.c

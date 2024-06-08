@@ -13,9 +13,9 @@ void init_philo(t_philo *philo, int id)
     // sem_unlink(sem_name);
     philo->sem_philo = sem_open(sem_name, O_CREAT | O_EXCL, 0644, 1);
     free(sem_name);
-    philo->meals_eaten = 0;
-    philo->id = id;
-    philo->isfull = 0;
+    set_bool(philo->sem_philo, &philo->meals_eaten, 0);
+    set_bool(philo->sem_philo, &philo->id, id);
+    set_bool(philo->sem_philo, &philo->isfull, 0);
     set_long(philo->sem_philo, &philo->last_meal_time, gettime());
 }
 

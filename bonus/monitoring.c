@@ -6,7 +6,7 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:27:00 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/29 16:06:12 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:19:26 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int philo_die(t_table *table)
 {
     long time;
-    
     time = gettime() - get_long(table->philo.sem_philo, &table->philo.last_meal_time);
     if (time >= table->time_to_die)
         return 1;
