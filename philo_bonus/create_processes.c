@@ -6,25 +6,25 @@
 /*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:39:54 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/24 17:58:05 by mal-mora         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:43:02 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void create_processes(t_table *table)
+void	create_processes(t_table *table)
 {
-	int i;
-	int pid;
+	int	i;
+	int	pid;
 
 	i = 0;
 	table->start_dinner = gettime();
 	while (i < table->philos)
 	{
 		pid = fork();
-		if(pid == 0) 
+		if (pid == 0)
 		{
-			routine(table, i);
+			routine(table, i + 1);
 			exit(0);
 		}
 		else if (pid < 0)
@@ -35,18 +35,18 @@ void create_processes(t_table *table)
 	wait_process(table);
 }
 
-void wait_process(t_table *table)
+void	wait_process(t_table *table)
 {
-    int status;
-    int i;
+	int	status;
+	int	i;
 
-    i = 0;
-    status = 0;
+	i = 0;
+	status = 0;
 	while (1)
 	{
 		if (waitpid(-1, &status, WNOHANG) == -1)
 			break ;
-		if(WEXITSTATUS(status) == exit_id)
+		if (WEXITSTATUS(status) == EXIT_ID)
 		{
 			i = 0;
 			while (i < table->philos)
@@ -54,7 +54,7 @@ void wait_process(t_table *table)
 				kill(table->philos_list[i], SIGQUIT);
 				i++;
 			}
-			break;
+			break ;
 		}
 	}
 }

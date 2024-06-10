@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mal-mora <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/09 15:18:53 by mal-mora          #+#    #+#             */
+/*   Updated: 2024/06/09 15:21:40 by mal-mora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -8,6 +21,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 static char	*ft_strcpy(char *dest, const char *src)
 {
 	char	*ptr;
@@ -65,7 +79,7 @@ char	*ft_itoa(int n)
 
 	nb = n;
 	counter = count_digit_len(nb);
-    str = (char *)malloc((counter + 1) * sizeof(char));
+	str = (char *)malloc((counter + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	str[counter] = '\0';
@@ -75,10 +89,10 @@ char	*ft_itoa(int n)
 		return (str);
 	}
 	while (nb > 0)
-    {
-        counter--;
-        str[counter] = '0' + (nb % 10);
-        nb = nb / 10;   
-    }
+	{
+		counter--;
+		str[counter] = '0' + (nb % 10);
+		nb = nb / 10;
+	}
 	return (str);
 }

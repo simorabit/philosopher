@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mal-mora <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:59:46 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/19 18:00:37 by mal-mora         ###   ########.fr       */
+/*   Created: 2024/06/09 16:06:03 by mal-mora          #+#    #+#             */
+/*   Updated: 2024/06/09 16:07:16 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	isnumber(const char *num)
 {
@@ -37,7 +37,7 @@ long	ft_atoi(const char *str)
 	sign = 1;
 	result = 0;
 	if (!isnumber(str))
-		error_exit("please enter a vaild num");
+		error_exit("Input Error");
 	while ((*str && *str == ' '))
 		str++;
 	if (*str == '+' || *str == '-')
@@ -49,9 +49,9 @@ long	ft_atoi(const char *str)
 	while (*str && *str >= '0' && *str <= '9')
 	{
 		result = result * 10 + (*str - 48);
-		if ((sign == 1 && result > INT_MAX)
-			|| (sign == -1 && - result < INT_MIN))
-			error_exit("please enter a vaild num");
+		if ((sign == 1 && result > INT_MAX) \
+				|| (sign == -1 && - result < INT_MIN))
+			error_exit("Input Error");
 		str++;
 	}
 	return (result * sign);

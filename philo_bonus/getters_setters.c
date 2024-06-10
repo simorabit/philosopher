@@ -1,47 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getter_setters.c                                   :+:      :+:    :+:   */
+/*   getters_setters.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mal-mora <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:50:51 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/05/19 17:53:24 by mal-mora         ###   ########.fr       */
+/*   Created: 2024/06/09 15:22:33 by mal-mora          #+#    #+#             */
+/*   Updated: 2024/06/09 15:52:41 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-void	set_long(pthread_mutex_t *mutex, long *dest, long value)
+void	set_long(sem_t *sem, long *dest, long value)
 {
-	pthread_mutex_lock(mutex);
+	sem_wait(sem);
 	*dest = value;
-	pthread_mutex_unlock(mutex);
+	sem_post(sem);
 }
 
-long	get_long(pthread_mutex_t *mutex, long *value)
+long	get_long(sem_t *sem, long *value)
 {
 	long	var;
 
-	pthread_mutex_lock(mutex);
+	sem_wait(sem);
 	var = *value;
-	pthread_mutex_unlock(mutex);
+	sem_post(sem);
 	return (var);
 }
 
-int	get_bool(pthread_mutex_t *mutex, int *value)
+void	increment_int(sem_t *sem, int *var)
+{
+	sem_wait(sem);
+	(*var)++;
+	sem_post(sem);
+}
+
+int	get_bool(sem_t *sem, int *value)
 {
 	int	var;
 
-	pthread_mutex_lock(mutex);
+	sem_wait(sem);
 	var = *value;
-	pthread_mutex_unlock(mutex);
+	sem_post(sem);
 	return (var);
 }
 
-void	set_bool(pthread_mutex_t *mutex, int *dest, int value)
+void	set_bool(sem_t *sem, int *dest, int value)
 {
-	pthread_mutex_lock(mutex);
+	sem_wait(sem);
 	*dest = value;
-	pthread_mutex_unlock(mutex);
+	sem_post(sem);
 }

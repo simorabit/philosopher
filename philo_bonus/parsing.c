@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mal-mora <mal-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mal-mora <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:47:37 by mal-mora          #+#    #+#             */
-/*   Updated: 2024/06/08 12:50:35 by mal-mora         ###   ########.fr       */
+/*   Created: 2024/06/09 15:16:55 by mal-mora          #+#    #+#             */
+/*   Updated: 2024/06/09 15:18:21 by mal-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-
-void	error_exit(char *s)
-{
-	printf("%s\n", s);
-    // exit(1);
-}
+#include "philo_bonus.h"
 
 int	read_input(t_table *table, char *arv[])
 {
@@ -27,8 +21,12 @@ int	read_input(t_table *table, char *arv[])
 	if (arv[5])
 		table->meals_must_eate = ft_atoi(arv[5]);
 	else
-		table->meals_must_eate = -1;
-	if(table->philos <= 0)
-		return -1;
-	return 0;
+		table->meals_must_eate = -2;
+	if (table->philos <= 0 || table->time_to_die == -1 || \
+			table->time_to_eat == -1 || \
+			table->time_to_sleep == -1)
+		return (-1);
+	else if (table->meals_must_eate == -1 || table->meals_must_eate == 0)
+		return (-1);
+	return (0);
 }
